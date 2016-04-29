@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.sussan.training2.app"
-        minSdkVersion 10
-        targetSdkVersion 22
+        minSdkVersion 16
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }

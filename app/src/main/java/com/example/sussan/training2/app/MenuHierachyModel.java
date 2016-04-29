@@ -37,6 +37,11 @@ public class MenuHierachyModel {
 
     public MenuHierachyModel() {}
 
+    public void addSubject(String newSubject)
+    {
+        subjects.add(new Subject(newSubject));
+    }
+
     public ArrayList<String> getSubjectNames()
     {
         return subjectNames;

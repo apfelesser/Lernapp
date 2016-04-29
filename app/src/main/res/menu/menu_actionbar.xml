@@ -6,6 +6,6 @@
         android:id="@+id/action_addSubject"
         android:icon ="@drawable/ic_add"
         android:title ="add Subject"
-        app:showAsAction ="ifRoom"/>
+        app:showAsAction ="always"/>
 
 </menu>

@@ -14,50 +14,53 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 // TODO any settings?
-public class SubjectActivity  extends AppCompatActivity {
+public class ChapterActivity  extends AppCompatActivity {
+
     MenuHierachyModel menuHierachyModel;
     // Der ArrayAdapter ist jetzt eine Membervariable der Klasse SubjectFragment
-    ArrayAdapter<String> mSubjectlisteAdapter;
+    ArrayAdapter<String> mChapterlisteAdapter;
 
-   @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_subject);
+        setContentView(R.layout.activity_chapter);
 
-       Toolbar subjectToolbar = (Toolbar) findViewById(R.id.subject_actionbar);
-       setSupportActionBar(subjectToolbar);
+        Toolbar subjectToolbar = (Toolbar) findViewById(R.id.subject_actionbar);
+        setSupportActionBar(subjectToolbar);
 
 
-       menuHierachyModel = MenuHierachyModel.getMenuHierachyModel();
+        menuHierachyModel = MenuHierachyModel.getMenuHierachyModel();
 
-       ArrayList<String> subjectList = menuHierachyModel.getSubjectList();
+        // TODO
+        ArrayList<String> chapterList = menuHierachyModel.getSubjectList();
 
-       mSubjectlisteAdapter = new ArrayAdapter<>(
-               this, // Die aktuelle Umgebung (diese Activity)
-               R.layout.list_item_subject, // ID der XML-Layout Datei
-               R.id.list_item_aktienliste_textview, // ID des TextViews
-               subjectList); // Beispieldaten in einer ArrayList
+        mChapterlisteAdapter = new ArrayAdapter<>(
+                this, // Die aktuelle Umgebung (diese Activity)
+                R.layout.list_item_subject, // ID der XML-Layout Datei
+                R.id.list_item_aktienliste_textview, // ID des TextViews
+                chapterList); // Beispieldaten in einer ArrayList
 
-       ListView subjectlisteListView = (ListView) findViewById(R.id.listview_subjectliste);
-       subjectlisteListView.setAdapter(mSubjectlisteAdapter);
+        GridView chapterlisteListView = (GridView) findViewById(R.id.gridview_chapterliste);
+        chapterlisteListView.setAdapter(mChapterlisteAdapter);
 
-       subjectlisteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*chapterlisteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-           @Override
-           public void onItemClick(AdapterView<?> parent, final View view,
-                                   int position, long id) {
-               final String item = (String) parent.getItemAtPosition(position);
-               einToast(item);
-               startActivity(new Intent(SubjectActivity.this, ChapterActivity.class));
-           }
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view,
+                                    int position, long id) {
+                final String item = (String) parent.getItemAtPosition(position);
+                einToast(item);
+                //startActivity(new Intent(ChapterActivity.this, ChapterActivity.class));
+            }
 
-       });
+        });*/
 
     }
 

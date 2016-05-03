@@ -5,6 +5,8 @@
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:gravity="center_vertical"
+    android:adjustViewBounds="true"
+    android:scaleType="center"
     android:id = "@+id/list_item_aktienliste_textview">
 
 </TextView>

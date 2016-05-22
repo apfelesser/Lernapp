@@ -2,6 +2,8 @@
     package="com.example.sussan.training2.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -23,6 +25,12 @@
             android:name=".ChapterActivity"
             android:label="Chapter"
             android:parentActivityName=".SubjectActivity" >
+        </activity>
+
+        <activity
+            android:name=".LerarningUnitActivity"
+            android:label="Lerning"
+            android:parentActivityName=".ChapterActivity" >
         </activity>
 
     </application>

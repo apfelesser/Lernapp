@@ -50,17 +50,17 @@ public class ChapterActivity  extends AppCompatActivity {
         GridView chapterlisteListView = (GridView) findViewById(R.id.gridview_chapterliste);
         chapterlisteListView.setAdapter(mChapterlisteAdapter);
 
-        /*chapterlisteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        chapterlisteListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, final View view,
                                     int position, long id) {
                 final String item = (String) parent.getItemAtPosition(position);
                 einToast(item);
-                //startActivity(new Intent(ChapterActivity.this, ChapterActivity.class));
+                startActivity(new Intent(ChapterActivity.this, LerarningUnitActivity.class));
             }
 
-        });*/
+        });
 
     }
 

@@ -1,5 +1,6 @@
 package com.example.sussan.training2.app;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,10 +26,12 @@ public class DiagrammView extends LinearLayout {
     ArrayList<textToLearn> allText;
 
     Context c;
+    Activity a;
 
-    public DiagrammView(Context context) {
+    public DiagrammView(Activity context) {
         super(context);
         c = context;
+        a = context;
         Log.e("MARK", "Konstruktor");
     }
 
@@ -118,14 +121,16 @@ public class DiagrammView extends LinearLayout {
         for (textToLearn text : allText)
         {
             Log.e("DiagrammView", "in for-schleife");
-            Button text_bnt = new Button(this.getContext());
+            Button text_bnt = new Button(c);
             text_bnt.setText(text.text);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             params.leftMargin = text.x*widthFactor;
             params.rightMargin = text.y*heightFactor;
             text_bnt.setLayoutParams(params);
             Log.e("DiagrammView", "fast ende for-schleife");
-            this.addView(text_bnt);
+           //this.addView(text_bnt);
+            a.addContentView(text_bnt, params);
+
             Log.e("DiagrammView", " ende for-schleife");
 
         }

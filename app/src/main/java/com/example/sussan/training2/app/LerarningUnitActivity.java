@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 
 /**
@@ -85,6 +86,7 @@ public class LerarningUnitActivity extends AppCompatActivity {
 
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.learningunit_layout);
 
         LinearLayout mainLayout = (LinearLayout)findViewById(R.id.learningunitcontainer);
@@ -121,5 +123,7 @@ public class LerarningUnitActivity extends AppCompatActivity {
            mainLayout.addView(diagramm);
         }
 
+
     }
+
 }

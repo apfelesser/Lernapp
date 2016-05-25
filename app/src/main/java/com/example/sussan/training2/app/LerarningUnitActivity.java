@@ -95,9 +95,12 @@ public class LerarningUnitActivity extends AppCompatActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-        DiagrammView diagramm = new DiagrammView(this);
+        SchematicModeLearning schematicView = new SchematicModeLearning();
 
-       if(diagramm == null)
+
+//        DiagrammView diagramm = new DiagrammView(this);
+
+       if(mainLayout == null)
         {
             Log.e("LearingActivity", "Null");
         }
@@ -109,7 +112,9 @@ public class LerarningUnitActivity extends AppCompatActivity {
             int p = 24;
            Log.e("LearingActivity", "parameter");
 
-            diagramm.init(s, w, h, p);
+           //mainLayout = schematicView.createLayoutOfDiagramm(mainLayout, w, h, p);
+           mainLayout = schematicView.initTextToLearn(mainLayout);
+
            if(mainLayout == null)
            {
                Log.e("LearingActivity", "mist null");
@@ -119,8 +124,6 @@ public class LerarningUnitActivity extends AppCompatActivity {
                Log.e("MARK", "else");
            }
 
-
-           mainLayout.addView(diagramm);
         }
 
 

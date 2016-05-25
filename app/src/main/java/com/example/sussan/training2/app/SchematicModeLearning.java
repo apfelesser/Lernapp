@@ -1,11 +1,8 @@
 package com.example.sussan.training2.app;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,63 +15,17 @@ import org.w3c.dom.Document;
 import java.util.ArrayList;
 
 /**
- * Created by Sussan on 11.05.2016.
+ * Created by Sussan on 25.05.2016.
  */
-public class DiagrammView extends LinearLayout {
+public class SchematicModeLearning {
+
     private int widthOfDiagramm;
     private int heightOfDiagramm;
     private Bitmap diagramm;
 
     ArrayList<textToLearn> allText;
 
-    Context c;
-    Activity a;
 
-    public DiagrammView(Activity context) {
-        super(context);
-        c = context;
-        a = context;
-        Log.e("MARK", "Konstruktor");
-        this.setOrientation(VERTICAL);
-
-        LinearLayout.LayoutParams vp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        this.setLayoutParams(vp);
-    }
-
-    void init_Depug()
-    {
-
-    }
-
-    public void init(String pathName, int widthOfDisplay, int heightOfDisplay, int Margins)
-    {
-        TextView tv = new TextView(c);
-        Log.e("textview", " erstellt");
-        tv.setText("Ich bn ein Textview");
-        LinearLayout.LayoutParams vp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        tv.setLayoutParams(vp);
-
-/*
-
-//        Document doc =  parseLearningUnit(pathName);
-       initBitmap();
-//        initBitmap(doc);
-        //initTextToLearn(doc);
-          createLayoutOfDiagramm(widthOfDisplay, heightOfDisplay, Margins);
-*/
-
-
-    }
-
-
-    private Document parseLearningUnit(String pathName)
-    {
-        Document doc = null;
-
-        return doc;
-    }
-
-//    private void initBitmap(Document doc)
     private void initBitmap()
     {
         Log.e("DiagrammView", "initBitmap");
@@ -93,15 +44,27 @@ public class DiagrammView extends LinearLayout {
 
     }
 
-    private void initTextToLearn(Document doc)
+    public LinearLayout initTextToLearn(LinearLayout container)
     {
+        TextView tv = new TextView(container.getContext());
+        tv.setText("textView neu");
+
+        LinearLayout.LayoutParams vp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        tv.setLayoutParams(vp);
+
+        container.addView(tv);
+
+        return container;
 
     }
 
-    public void createLayoutOfDiagramm(int widthOfDisplay, int heightOfDisplay, int Margins)
-    {
+    public LinearLayout createLayoutOfDiagramm(LinearLayout container, int widthOfDisplay, int heightOfDisplay, int Margins)
+        {
+            initBitmap();
+
+
         Log.e("DiagrammView", "createLayoutOfDiagramm");
-        ImageView diagrammView = new ImageView(c); //(ImageView)findViewById(R.id.DiagrammImage);
+        ImageView diagrammView = new ImageView(container.getContext()); //(ImageView)findViewById(R.id.DiagrammImage);
         Log.e("DiagrammView", "diagrammView erstellt");
 
         LinearLayout.LayoutParams vp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -116,14 +79,14 @@ public class DiagrammView extends LinearLayout {
         diagrammView.setImageBitmap(diagramm);
         Log.e("DiagrammView", "diagramm gesetzt");
 
-        this.addView(diagrammView);
+        container.addView(diagrammView);
         Log.e("DiagrammView", "diagrammView geaddet");
 
- //       int widthFactor = Math.round(widthOfDisplay / diagramm.getHeight());
- //       int heightFactor = Math.round(heightOfDisplay / diagramm.getWidth());
+        //       int widthFactor = Math.round(widthOfDisplay / diagramm.getHeight());
+        //       int heightFactor = Math.round(heightOfDisplay / diagramm.getWidth());
 
-            int widthFactor = 20;
-            int heightFactor = 20;
+        int widthFactor = 20;
+        int heightFactor = 20;
 
         textToLearn t = new textToLearn(100,100,"Hallo");
         Log.e("DiagrammView", "create textToLearn");
@@ -135,19 +98,21 @@ public class DiagrammView extends LinearLayout {
         for (textToLearn text : allText)
         {
             Log.e("DiagrammView", "in for-schleife");
-            Button text_bnt = new Button(c);
+            Button text_bnt = new Button(container.getContext());
             text_bnt.setText(text.text);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             params.leftMargin = text.x*widthFactor;
             params.rightMargin = text.y*heightFactor;
             text_bnt.setLayoutParams(params);
             Log.e("DiagrammView", "fast ende for-schleife");
-           this.addView(text_bnt);
-           // a.addContentView(text_bnt, params);
+            container.addView(text_bnt);
+            // a.addContentView(text_bnt, params);
 
             Log.e("DiagrammView", " ende for-schleife");
 
         }
+
+            return container;
 
     }
 
@@ -165,4 +130,5 @@ public class DiagrammView extends LinearLayout {
             text = ptext;
         }
     }
+
 }

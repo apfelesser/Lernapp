@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 // TODO any settings?
 public class ChapterActivity  extends AppCompatActivity {
 
-    MenuHierachyModel menuHierachyModel;
+    private MenuModel menuModel;
     // Der ArrayAdapter ist jetzt eine Membervariable der Klasse SubjectFragment
     ArrayAdapter<String> mChapterlisteAdapter;
 
@@ -36,10 +37,19 @@ public class ChapterActivity  extends AppCompatActivity {
         setSupportActionBar(subjectToolbar);
 
 
-        menuHierachyModel = MenuHierachyModel.getMenuHierachyModel();
+        menuModel = MenuModel.getMenuModel();
+
+        Intent i = getIntent();
+        // Receiving the Data
+        String subjectName = i.getStringExtra("subjectName");
 
         // TODO
-        ArrayList<String> chapterList = menuHierachyModel.getSubjectList();
+        ArrayList<String> chapterList = menuModel.getChapters(subjectName);
+
+        if(chapterList.isEmpty())
+        {
+            Log.e("ChapterActivity",  "chapterList ist leer");
+        }
 
         mChapterlisteAdapter = new ArrayAdapter<>(
                 this, // Die aktuelle Umgebung (diese Activity)
@@ -100,7 +110,7 @@ public class ChapterActivity  extends AppCompatActivity {
         dialogBuilder.setMessage("Gebe den Namen des Faches ein");
         dialogBuilder.setPositiveButton("Fach erstellen", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                menuHierachyModel.setSubject(edt.getText().toString());
+                menuModel.setChapter("Betriebssysteme",edt.getText().toString());
             }
         });
         dialogBuilder.setNegativeButton("zurück", new DialogInterface.OnClickListener() {

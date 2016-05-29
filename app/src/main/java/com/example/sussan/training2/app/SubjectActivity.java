@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,22 +22,30 @@ import java.util.ArrayList;
 
 // TODO any settings?
 public class SubjectActivity  extends AppCompatActivity {
-    MenuHierachyModel menuHierachyModel;
+    //MenuHierachyModel menuHierachyModel;
     // Der ArrayAdapter ist jetzt eine Membervariable der Klasse SubjectFragment
     ArrayAdapter<String> mSubjectlisteAdapter;
+
+    private MenuModel menuModel;
 
    @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject);
 
+/***************************** init Model ************************************/
+
+/*****************************************************************************/
+
        Toolbar subjectToolbar = (Toolbar) findViewById(R.id.subject_actionbar);
        setSupportActionBar(subjectToolbar);
 
 
-       menuHierachyModel = MenuHierachyModel.getMenuHierachyModel();
+       menuModel = MenuModel.getMenuModel();
 
-       ArrayList<String> subjectList = menuHierachyModel.getSubjectList();
+
+
+       ArrayList<String> subjectList = menuModel.getSubjects();
 
        mSubjectlisteAdapter = new ArrayAdapter<>(
                this, // Die aktuelle Umgebung (diese Activity)
@@ -54,7 +63,9 @@ public class SubjectActivity  extends AppCompatActivity {
                                    int position, long id) {
                final String item = (String) parent.getItemAtPosition(position);
                einToast(item);
-               startActivity(new Intent(SubjectActivity.this, ChapterActivity.class));
+               Intent chapterScreen = new Intent(SubjectActivity.this, ChapterActivity.class);
+               chapterScreen.putExtra("subjectName", item);
+               startActivity(chapterScreen);
            }
 
        });
@@ -97,7 +108,7 @@ public class SubjectActivity  extends AppCompatActivity {
         dialogBuilder.setMessage("Gebe den Namen des Faches ein");
         dialogBuilder.setPositiveButton("Fach erstellen", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                menuHierachyModel.setSubject(edt.getText().toString());
+                menuModel.setSubject(edt.getText().toString());
             }
         });
         dialogBuilder.setNegativeButton("zurück", new DialogInterface.OnClickListener() {

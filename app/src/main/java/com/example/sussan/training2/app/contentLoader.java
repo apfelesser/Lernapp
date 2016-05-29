@@ -30,7 +30,7 @@ public class ContentLoader {
 
     private void getAllFiles()
     {
-        File folder = new File("/storage/emulated/0/Pictures/Lernapp/");
+        File folder = new File("/storage/emulated/0/Lernapp/Docs/");
         File[] listOfFiles = folder.listFiles();
 
         for (File file : listOfFiles)
@@ -104,13 +104,13 @@ public class ContentLoader {
                 if (sElement.getAttribute("name").equals(subject)) {
                     NodeList nListSChapter = sElement.getElementsByTagName("chapter");
 
-                    for (int countChapters = 0; countChapters < nListSubject.getLength(); countChapters++) {
+                    for (int countChapters = 0; countChapters < nListSChapter.getLength(); countChapters++) {
 
-                        Node nNodeChapter = nListSubject.item(countChapters);
+                        Node nNodeChapter = nListSChapter.item(countChapters);
 
-                        if (nNodeSubject.getNodeType() == Node.ELEMENT_NODE) {
+                        if (nNodeChapter.getNodeType() == Node.ELEMENT_NODE) {
 
-                            Element cElement = (Element) nNodeSubject;
+                            Element cElement = (Element) nNodeChapter;
 
                             chapters.add(cElement.getAttribute("name"));
                         }

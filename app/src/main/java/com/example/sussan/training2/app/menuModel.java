@@ -1,5 +1,7 @@
 package com.example.sussan.training2.app;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -24,16 +26,38 @@ public class MenuModel {
         }
     }
 
-    public MenuModel() {
-        subjects = new ArrayList<Subject>();
+    private MenuModel() {
+        initMenuModel();
     }
 
+    private void initMenuModel()
+    {
+        subjects = new ArrayList<Subject>();
+        //setDummyValues();
+
+        ContentLoader C = new ContentLoader();
+        for (String newSubject : C.getAllSubjects())
+        {
+            setSubject(newSubject);
+
+            for( String newChapter : C.getAllChaptersOfSubject(newSubject)) {
+                Log.e("Model / intModel",  "Element/Chapter: " + newChapter);
+                setChapter(newSubject, newChapter);
+            }
+        }
+
+
+
+        Log.e("Model / Subject",  "1.Element: " + subjects.get(0).getName());
+        Log.e("Model / Subjecty",  "2.Element: " + subjects.get(1).getName());
+    }
+
+    /**************************** MenuMpdel-Functions ****************************/
     void setSubject(String subjectName)
     {
         subjects.add(new Subject(subjectName));
     }
 
-/**************************** MenuMpdel-Functions ****************************/
     ArrayList<String> getSubjects() {
         ArrayList<String> subjectNames = new ArrayList<String>();
 
@@ -60,16 +84,24 @@ public class MenuModel {
     ArrayList<String> getChapters(String subjectName)
     {
         ArrayList<String> chapterNames = new ArrayList<String>();
+        Log.e("Model", "getChaptres aufgerufen");
 
         for (Subject s : subjects) {
+
+            Log.e("Model", "suche: " + subjectName + " finde: " + s.getName());
+
             if(subjectName.equals(s.getName()))
             {
-                for(Chapter c : s.getChapterList())
+                ArrayList<Chapter> probeListe = s.getChapterList();
+                for(Chapter c : probeListe)
                 {
                     chapterNames.add(c.getName());
+                    Log.e("Model", "XXX in Chapter in forschleife");
+
                 }
+                break;
             }
-            break;
+
         }
         return chapterNames;
     }
@@ -77,8 +109,10 @@ public class MenuModel {
     void setChapter(String subjectName, String chapterName)
     {
         for (Subject s : subjects) {
+            Log.e("Model", "in setChapter for-schleife");
             if(subjectName.equals(s.getName()))
             {
+                Log.e("Model", "subject gefunden names " + subjectName + " chapter: " + chapterName);
                 s.setChapter(new Chapter(chapterName));
                 break;
             }
@@ -123,6 +157,8 @@ public class MenuModel {
         setChapter("Betriebssysteme", "Paging");
         setChapter("Betriebssysteme", "Prozesse und Threads");
         setChapter("Betriebssysteme", "Linux");
+
+        Log.e("Model", "dummy werte gesetzt");
     }
 
 /**************************  Subject  ****************************************/
@@ -171,6 +207,9 @@ public class MenuModel {
         Chapter(String p_name)
         {
             setName(p_name);
+            Log.e("Model", "setChapter, with name: " + p_name);
+
+
         }
 
         void setName(String p_name)

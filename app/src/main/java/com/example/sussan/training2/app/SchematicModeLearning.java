@@ -23,7 +23,9 @@ import java.util.ArrayList;
  */
 public class SchematicModeLearning extends RelativeLayout {
 
-    private int factorDiagrammImage;
+    private float factorDiagrammImage;
+    private int movSchematicTextRight;
+    private int movSchematicTextDown;
 
     private Bitmap diagramm;
 
@@ -60,91 +62,68 @@ public class SchematicModeLearning extends RelativeLayout {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         Log.e("onStart",  "this.getHeight()" +  this.getHeight());
-        Log.e("onStart",  " this.getHeight()" +  this.getMeasuredHeight());
-        Log.e("onStart",  " this.getHeight()" +  this.getX());
-
-        factorDiagrammImage = calculateFactorImageAndDisplay(diagramm.getWidth(), diagramm.getHeight(), this.getWidth(), this.getHeight());
-
-    }
+        Log.e("onStart",  " this.getWidth()" +  this.getWidth());
 
 
-    public LinearLayout createLayoutOfDiagramm(Context context, int widthOfDisplay, int heightOfDisplay, int Margins)
-        {
-            initBitmap();
+         calculateFactorImageAndDisplay(diagramm.getWidth(), diagramm.getHeight(), this.getWidth(), this.getHeight());
 
-            LinearLayout container = new LinearLayout(context);
-        Log.e("DiagrammView", "createLayoutOfDiagramm");
-        ImageView diagrammView = new ImageView(container.getContext()); //(ImageView)findViewById(R.id.DiagrammImage);
-        Log.e("DiagrammView", "diagrammView erstellt");
-
-        LinearLayout.LayoutParams vp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        diagrammView.setLayoutParams(vp);
-
-        Log.e("DiagrammView", "params gesetzt");
-
-        if(diagrammView == null)
-        {
-            Log.e("DiagrammView", "diagrammView is null");
-        }
-        diagrammView.setImageBitmap(diagramm);
-        Log.e("DiagrammView", "diagramm gesetzt");
-
-        container.addView(diagrammView);
-        Log.e("DiagrammView", "diagrammView geaddet");
-
-        //       int widthFactor = Math.round(widthOfDisplay / diagramm.getHeight());
-        //       int heightFactor = Math.round(heightOfDisplay / diagramm.getWidth());
-
-        int widthFactor = 20;
-        int heightFactor = 20;
-
-        textToLearn t = new textToLearn(100,100,"Hallo");
+        textToLearn t = new textToLearn(0,100,"Hallo");
         Log.e("DiagrammView", "create textToLearn");
         allText = new ArrayList<textToLearn>();
         allText.add(t);
 
-        Log.e("DiagrammView", "t geaddet");
-
         for (textToLearn text : allText)
         {
             Log.e("DiagrammView", "in for-schleife");
-            Button text_bnt = new Button(container.getContext());
+            Button text_bnt = new Button(this.getContext());
             text_bnt.setText(text.text);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.leftMargin = text.x*widthFactor;
-            params.rightMargin = text.y*heightFactor;
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.leftMargin = Math.round((float)text.x*(float)diagramm.getWidth()*factorDiagrammImage) + movSchematicTextRight;
+            params.topMargin = Math.round((float)text.y*(float)diagramm.getHeight()*factorDiagrammImage) + movSchematicTextDown;
             text_bnt.setLayoutParams(params);
-            Log.e("DiagrammView", "fast ende for-schleife");
-            container.addView(text_bnt);
+            Log.e("SchematicModeLearning", " params.leftMargin " +  params.leftMargin);
+            Log.e("SchematicModeLearning", " params.topMargin " +  params.topMargin);
+
+            this.addView(text_bnt);
             // a.addContentView(text_bnt, params);
 
             Log.e("DiagrammView", " ende for-schleife");
 
         }
 
-            return container;
-
     }
 
-    /* calculate the factor between Image and Display */
-    private int calculateFactorImageAndDisplay(int imageX, int imageY, int displayX, int displayY)
-    {
-        int factor;
 
-        float displayApectRatio = (displayX/displayY);
-        float imageApectRatio = (imageX/imageY);
+    /* calculate the factor between Image and Display */
+    private void calculateFactorImageAndDisplay(int imageX, int imageY, int displayX, int displayY)
+    {
+        float factor;
+
+        float displayApectRatio = ((float)displayX/(float)displayY);
+        float imageApectRatio = ((float)imageX/(float)imageY);
 
         if(displayApectRatio >= imageApectRatio)
         {
-            factor = Math.round(1 / displayY);
+            factor = (1.0f / (float)displayY);
+
+            movSchematicTextRight = Math.round((float)(displayX-imageX)*0.5f*factor*imageX);
+            movSchematicTextDown = 0;
+            Log.e("SchematicModeLearning", " movSchematicTextRight  "+ movSchematicTextRight);
         }
         else
         {
-            factor = Math.round(1 / displayX);
+            Log.e("SchematicModeLearning", " 1 / displayX  "+ 1 / (float)displayX);
+            factor =(1.0f / (float)displayX);
+
+            movSchematicTextDown = Math.round((float)(displayY-imageY)*0.5f*factor*imageY);
+            movSchematicTextRight = 0;
+            Log.e("SchematicModeLearning", " (float)(displayY-imageY)*0.5f*factor  "+ (float)(displayY-imageY)*0.5f*factor);
+
         }
 
-        return factor;
+        factorDiagrammImage =  factor;
     }
+
 
 
     class textToLearn

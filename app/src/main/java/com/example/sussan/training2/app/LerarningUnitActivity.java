@@ -41,6 +41,4 @@ public class LerarningUnitActivity extends AppCompatActivity {
         Log.e("onStart",  " s.getHeight()" +  s.getMeasuredHeight());
         Log.e("onStart",  " s.getHeight()" +  s.getX());
     }
-
-
 }

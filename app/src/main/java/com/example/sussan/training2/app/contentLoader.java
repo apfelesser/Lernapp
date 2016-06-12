@@ -190,24 +190,26 @@ public class ContentLoader {
     {
         for(Document docLearningUnit : LearningUnits)
         {
-            NodeList nListSubjects = docLearningUnit.getElementsByTagName("BelongsToSubject");
-            Node nNodeSubject = nListSubjects.item(0);
-            if (nNodeSubject.getNodeType() == Node.ELEMENT_NODE) {
+            if(LearningUnit.equals(docLearningUnit.getDocumentElement().getAttribute("name")))
+            {
+                NodeList nListSubjects = docLearningUnit.getElementsByTagName("BelongsToSubject");
+                Node nNodeSubject = nListSubjects.item(0);
 
-                Element sElement = (Element) nNodeSubject;
-                if(sElement.getAttribute("name").equals(subject))
-                {
-                    NodeList nListChapters = sElement.getElementsByTagName("BelongsToChapter");
-                    Node nNodeChapter = nListChapters.item(0);
-                    Element cElement = (Element) nNodeChapter;
+                if (nNodeSubject.getNodeType() == Node.ELEMENT_NODE) {
 
-                    if(cElement.getAttribute("name").equals(chapter))
-                    {
-                        return docLearningUnit;
+                    Element sElement = (Element) nNodeSubject;
+
+                    if (sElement.getNodeValue().equals(subject)) {
+                        NodeList nListChapters = sElement.getElementsByTagName("BelongsToChapter");
+                        Node nNodeChapter = nListChapters.item(0);
+                        Element cElement = (Element) nNodeChapter;
+
+                        if (cElement.getNodeValue().equals(chapter)) {
+                            return docLearningUnit;
+                        }
                     }
                 }
             }
-
         }
 
         return null;
@@ -245,9 +247,9 @@ public class ContentLoader {
 
                     Element letteringElement = (Element) nNodeSubject;
 
-                    paramSchematic.add(letteringElement.getElementsByTagName("name").item(0).getTextContent());
                     paramSchematic.add(letteringElement.getElementsByTagName("xposition").item(0).getTextContent());
                     paramSchematic.add(letteringElement.getElementsByTagName("yposition").item(0).getTextContent());
+                    paramSchematic.add(letteringElement.getElementsByTagName("name").item(0).getTextContent());
                 }
 
             }

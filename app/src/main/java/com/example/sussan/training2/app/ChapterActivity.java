@@ -1,3 +1,4 @@
+
 package com.example.sussan.training2.app;
 
 import android.content.DialogInterface;
@@ -53,8 +54,8 @@ public class ChapterActivity  extends AppCompatActivity {
 
         mChapterlisteAdapter = new ArrayAdapter<>(
                 this, // Die aktuelle Umgebung (diese Activity)
-                R.layout.list_item_subject, // ID der XML-Layout Datei
-                R.id.list_item_aktienliste_textview, // ID des TextViews
+                R.layout.list_item_chapter, // ID der XML-Layout Datei
+                R.id.list_item_chapter_textview, // ID des TextViews
                 chapterList); // Beispieldaten in einer ArrayList
 
         GridView chapterlisteListView = (GridView) findViewById(R.id.gridview_chapterliste);

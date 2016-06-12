@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
@@ -13,16 +13,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minHeight="?android:attr/listPreferredItemHeight"
-        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
         android:adjustViewBounds="true"
         android:scaleType="center"
-        android:id = "@+id/list_item_aktienliste_textview">
+        android:id = "@+id/list_item_chapter_textview">
     </TextView>
 
     <ImageButton
-        android:id="@+id/button_1"
+        android:id="@+id/chapter_button_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:layout_gravity="center_vertical|right"
+        android:src="@drawable/ic_list_black_18dp" />
+
+
+    <ImageButton
+        android:id="@+id/chapter_button_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
         android:src="@drawable/ic_mode_edit_black_18dp" />
-</RelativeLayout>
+
+
+</LinearLayout>

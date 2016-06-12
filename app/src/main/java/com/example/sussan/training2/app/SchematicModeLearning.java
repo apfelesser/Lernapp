@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by Sussan on 25.05.2016.
  */
-public class SchematicModeLearning extends RelativeLayout {
+public class SchematicModeLearning extends RelativeLayout implements LearningUnit{
 
     private float factorDiagrammImage;
     private int movSchematicTextRight;
@@ -29,7 +29,9 @@ public class SchematicModeLearning extends RelativeLayout {
 
     private Bitmap diagramm;
 
-    ArrayList<textToLearn> allText;
+    private String learningUnitTitel;
+    private ArrayList<textToLearn> allText;
+    private String schematicPath;
 
     public SchematicModeLearning(Context context) {
         super(context);
@@ -50,14 +52,26 @@ public class SchematicModeLearning extends RelativeLayout {
 
         this.addView(diagrammView);
     }
-
-    private void initBitmap()
+/************************* init information **********************************/
+    public void setLetterings(int xposition, int yposition, String text )
     {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        diagramm = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/Lernapp/quadrate.png", options);
+        textToLearn lettering = new textToLearn(xposition, yposition, text);
+
+        if(allText == null)
+        {
+            allText = new ArrayList<textToLearn>();
+        }
+
+        allText.add(lettering);
     }
 
+    public void setLetteringPath(String path)
+    {
+        schematicPath = path;
+    }
+
+
+/*****************************************************************************/
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -94,6 +108,14 @@ public class SchematicModeLearning extends RelativeLayout {
     }
 
 
+/********************** supporting functions *********************************/
+
+    private void initBitmap()
+    {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        diagramm = BitmapFactory.decodeFile("/storage/emulated/0/Pictures/Lernapp/quadrate.png", options);
+    }
     /* calculate the factor between Image and Display */
     private void calculateFactorImageAndDisplay(int imageX, int imageY, int displayX, int displayY)
     {

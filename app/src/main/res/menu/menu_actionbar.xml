@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_toogleMode"
+        android:icon="@drawable/lernen_aus"
+        android:title ="change the Mode"
+        app:showAsAction ="always"/>
+
+    <item
         android:id="@+id/action_addSubject"
         android:icon ="@drawable/ic_add"
         android:title ="add Subject"

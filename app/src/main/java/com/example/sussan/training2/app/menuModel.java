@@ -12,7 +12,7 @@ public class MenuModel {
 /**************************** create MenuMpdel *******************************/
     private static MenuModel menuModel;
 
-    ArrayList<Subject> subjects;
+    private ArrayList<Subject> subjects;
 
     public static MenuModel getMenuModel()
     {
@@ -86,7 +86,8 @@ public class MenuModel {
         ArrayList<String> chapterNames = new ArrayList<String>();
         Log.e("Model", "getChaptres aufgerufen");
 
-        for (Subject s : subjects) {
+        for (Subject s : subjects)
+        {
 
             Log.e("Model", "suche: " + subjectName + " finde: " + s.getName());
 
@@ -137,6 +138,75 @@ public class MenuModel {
         }
     }
 
+    void setLearningUnit(String subjectName, String chapterName, LearningUnit learningUnit)
+    {
+        for (Subject s : subjects)
+        {
+            if(subjectName.equals(s.getName()))
+            {
+                ArrayList<Chapter> probeListe = s.getChapterList();
+                for(Chapter c : probeListe)
+                {
+                    if(chapterName.equals(c.getName()))
+                    {
+                        c.setLearningUnit(learningUnit);
+                        break;
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    ArrayList<LearningUnit> getLearningUnits(String subjectName, String chapterName)
+    {
+        ArrayList<LearningUnit> learningUnits = new ArrayList<LearningUnit>();
+
+
+        for (Subject s : subjects)
+        {
+            if(subjectName.equals(s.getName()))
+            {
+                ArrayList<Chapter> probeListe = s.getChapterList();
+                for(Chapter c : probeListe)
+                {
+                    if(chapterName.equals(c.getName()))
+                    {
+                        return c.getLearningUnits();
+                    }
+                }
+            }
+
+        }
+
+        return null;
+    }
+
+    LearningUnit getLearningUnitAtIndex(String subjectName, String chapterName, int position)
+    {
+        ArrayList<LearningUnit> learningUnits = new ArrayList<LearningUnit>();
+
+
+        for (Subject s : subjects)
+        {
+            if(subjectName.equals(s.getName()))
+            {
+                ArrayList<Chapter> probeListe = s.getChapterList();
+                for(Chapter c : probeListe)
+                {
+                    if(chapterName.equals(c.getName()))
+                    {
+                        return c.getLearingUnitAtIndex(position);
+                    }
+                }
+            }
+
+        }
+
+        return null;
+    }
+
 /**************************** setDummyValues *********************************/
     void setDummyValues()
     {
@@ -164,8 +234,8 @@ public class MenuModel {
 /**************************  Subject  ****************************************/
     private class Subject
     {
-        String name;
-        ArrayList<Chapter> chapters;
+        private String name;
+        private ArrayList<Chapter> chapters;
 
         Subject(String p_name)
         {
@@ -202,7 +272,8 @@ public class MenuModel {
 /**************************  Chapter  ****************************************/
     private class Chapter
     {
-        String name;
+        private String name;
+        private ArrayList<LearningUnit> LearningUnits;
 
         Chapter(String p_name)
         {
@@ -221,10 +292,35 @@ public class MenuModel {
         {
             return name;
         }
-    }
 
-    private class LearningUnit
-    {
+        void setLearningUnit(LearningUnit learningUnit)
+        {
+            if(LearningUnits.isEmpty() == true || LearningUnits == null)
+            {
+                LearningUnits = new ArrayList<LearningUnit>();
+            }
 
+            LearningUnits.add(learningUnit);
+        }
+
+        ArrayList<LearningUnit> getLearningUnits()
+        {
+            return LearningUnits;
+        }
+
+        LearningUnit getLearingUnitAtIndex(int position)
+        {
+            if(LearningUnits.size() > (position + 1))
+            {
+                return null;
+            }
+
+            return LearningUnits.get(position);
+        }
+
+        int getNumberOfLearningUnits()
+        {
+            return LearningUnits.size();
+        }
     }
 }
